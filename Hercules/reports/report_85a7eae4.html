@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Executive Summary: Security Risk Assessment - scanme.nmap.org</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; margin: 40px; }
+        h1, h2 { color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
+        .rating-box { padding: 20px; background-color: #f8f9fa; border: 1px solid #dee2e6; text-align: center; margin: 20px 0; }
+        .rating { font-size: 2em; font-weight: bold; color: #f1c40f; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; }
+        .medium { background-color: #f1c40f; color: #333; }
+        .risk-section { margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+    <h1>Executive Summary: Security Risk Assessment</h1>
+    <p><strong>Target:</strong> scanme.nmap.org (Infrastructure Assessment)</p>
+    <p><strong>Date:</strong> May 4, 2026</p>
+
+    <div class="section">
+        <h2>1. Engagement Overview</h2>
+        <p>This assessment evaluated the security posture of the infrastructure supporting scanme.nmap.org. The engagement, conducted between May 4, 2026, employed industry-standard vulnerability analysis techniques to identify potential attack vectors. The objective was to determine the risk to business continuity and data integrity posed by outdated software components and configuration weaknesses.</p>
+    </div>
+
+    <div class="section">
+        <h2>2. Overall Security Posture</h2>
+        <div class="rating-box">
+            <p>Current Risk Rating:</p>
+            <span class="rating">C+ (Moderate Risk)</span>
+            <p><em>The infrastructure is functional but requires immediate lifecycle management to address technical debt and reduce the surface area for potential exploitation.</em></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. Top Business Risks</h2>
+        <ul>
+            <li><strong>Infrastructure Obsolescence (Operational Risk):</strong> The web server software (Apache 2.4.7) is significantly outdated and no longer receives security updates. This poses a threat of service instability and makes the organization vulnerable to known, unpatched exploits.</li>
+            <li><strong>Access Control Exposure (Data Security Risk):</strong> The current SSH configuration allows for information gathering that can be leveraged to facilitate credential-based attacks, increasing the risk of unauthorized system access.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>4. Risk Distribution</h2>
+        <table>
+            <tr><th>Risk Severity</th><th>Count</th></tr>
+            <tr><td>Critical</td><td>0</td></tr>
+            <tr><td>High</td><td>0</td></tr>
+            <tr><td>Medium</td><td>2</td></tr>
+            <tr><td>Low</td><td>0</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>5. Strategic Recommendations</h2>
+        <ul>
+            <li><strong>Accelerate Lifecycle Management:</strong> Initiate a project to migrate services to a current, supported operating system. Replacing End-of-Life (EOL) software is the most effective way to eliminate the current medium-tier risks.</li>
+            <li><strong>Harden Remote Access:</strong> Disable password-based SSH authentication immediately in favor of secure, public-key authentication to mitigate brute-force and enumeration risks.</li>
+            <li><strong>Formalize Patch Management:</strong> Establish a recurring maintenance schedule to ensure server-side software is audited and updated quarterly to prevent the accumulation of "technical debt" vulnerabilities.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>6. Compliance & Next Steps</h2>
+        <p>While no specific regulatory framework was applied for this assessment, the identified vulnerabilities deviate from standard industry best practices for secure hosting. </p>
+        <p><strong>Next Steps:</strong> We recommend finalizing the remediation of the identified SSH and Apache vulnerabilities within 30 days. A follow-up verification scan should be scheduled for June 2026 to ensure the risk profile has been successfully downgraded to "Low."</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<h1>Executive Summary: Security Assessment of scanme.nmap.org</h1>
+
+<div class="section">
+    <p><strong>Date:</strong> May 5, 2026</p>
+    <p>This report provides a high-level summary of the recent security assessment conducted on the public-facing web infrastructure at <em>scanme.nmap.org</em>. The objective was to identify security vulnerabilities that could impact the integrity, availability, or confidentiality of the organization's public web presence.</p>
+    <p>The engagement followed a structured approach including reconnaissance, service discovery, and vulnerability analysis to emulate real-world threat actor activity. While the scope was limited to public-facing elements, our assessment revealed specific configuration gaps that require attention to align with modern security standards.</p>
+</div>
+
+<div class="section">
+    <h2>Overall Security Posture: B-</h2>
+    <p>The overall security posture of <em>scanme.nmap.org</em> is considered <strong>Moderate</strong>. The infrastructure is currently operating without critical vulnerabilities that would allow for immediate unauthorized access or data exfiltration. However, the presence of cleartext data transmission and the use of aging software components create unnecessary operational risks that should be mitigated to maintain industry best practices.</p>
+</div>
+
+<div class="section">
+    <h2>Summary of Key Business Risks</h2>
+    <p>Our assessment identified the following primary risks to the business:</p>
+    <ul>
+        <li><strong>Data Exposure Risk (Cleartext Transmission):</strong> The absence of Transport Layer Security (HTTPS) means that all interactions with the site occur over unencrypted connections. This exposes the organization to “Man-in-the-Middle” attacks, where third parties could intercept or manipulate data traffic.</li>
+        <li><strong>System Lifecycle &amp; Maintenance Debt:</strong> The server utilizes legacy software components. While no active exploitable pathways were identified today, relying on outdated software limits the organization's ability to defend against future, emerging threats and increases the technical effort required for routine maintenance.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Risk Distribution</h2>
+    <table>
+        <tr>
+            <th>Risk Level</th>
+            <th>Count</th>
+            <th>Business Impact</th>
+        </tr>
+        <tr>
+            <td>Critical</td>
+            <td>0</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>High</td>
+            <td>0</td>
+            <td>N/A</td>
+        </tr>
+        <tr>
+            <td>Medium</td>
+            <td>1</td>
+            <td>Potential interception of user traffic and loss of data privacy.</td>
+        </tr>
+        <tr>
+            <td>Low/Info</td>
+            <td>1</td>
+            <td>Maintenance and supportability concerns.</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>Strategic Recommendations</h2>
+    <p>To reduce risk and ensure long-term stability, leadership should prioritize the following actions:</p>
+    <ul>
+        <li><strong>Implement Mandatory Encryption:</strong> Deploy a valid SSL/TLS certificate immediately to ensure all web traffic is encrypted (HTTPS). This is the single most effective step to improve site security and user trust.</li>
+        <li><strong>Modernize Infrastructure:</strong> Initiate a project to upgrade the operating system and web server components to current, supported versions. This addresses the "maintenance debt" and reduces the likelihood of future system-level compromises.</li>
+        <li><strong>Establish Lifecycle Management:</strong> Implement an automated patching and vulnerability monitoring schedule. Moving from reactive to proactive maintenance will reduce the total cost of ownership for these assets.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Compliance Implications</h2>
+    <p>Although this engagement did not follow a specific formal framework, the identified weaknesses—specifically the lack of encrypted transport—fall below the requirements mandated by industry standards such as GDPR, PCI-DSS, and SOC2. Addressing these gaps is essential for maintaining compliance with data protection regulations and industry privacy standards.</p>
+</div>
+
+<div class="section">
+    <h2>Next Steps</h2>
+    <p>We recommend a 90-day remediation timeline. Immediate efforts should focus on HTTPS implementation (0-30 days), followed by the operating system upgrade (30-90 days). A validation scan should be conducted once the infrastructure upgrades are completed to verify that the identified risks have been fully remediated.</p>
+</div>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 20px; }
+    h1, h2, h3 { color: #2c3e50; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f4f4f4; }
+    .severity-critical { background-color: #ffcccc; color: #cc0000; font-weight: bold; padding: 5px; border-radius: 3px; }
+    .severity-high { background-color: #ffe5cc; color: #cc6600; font-weight: bold; padding: 5px; border-radius: 3px; }
+    .severity-medium { background-color: #fff3cc; color: #997a00; font-weight: bold; padding: 5px; border-radius: 3px; }
+    .severity-low { background-color: #d4edda; color: #155724; font-weight: bold; padding: 5px; border-radius: 3px; }
+    .severity-info { background-color: #d1ecf1; color: #0c5460; font-weight: bold; padding: 5px; border-radius: 3px; }
+    .section { margin-bottom: 30px; }
+</style>
+
+<div class="section">
+    <h1>Vulnerability Assessment Report</h1>
+    <p><strong>Report Title:</strong> Penetration Test Report: scanme.nmap.org</p>
+    <p><strong>Date:</strong> 2026-05-05</p>
+    <p><strong>Target:</strong> http://scanme.nmap.org/ (45.33.32.156)</p>
+    <p><strong>Scope:</strong> Public-facing web infrastructure</p>
+    <p><strong>Tester:</strong> Security Assessment Team</p>
+</div>
+
+<div class="section">
+    <h2>1. Methodology</h2>
+    <p>The assessment followed a structured approach to identify security weaknesses in the target environment:</p>
+    <ul>
+        <li><strong>Reconnaissance:</strong> Passive OSINT, DNS analysis, and WHOIS lookups.</li>
+        <li><strong>Enumeration:</strong> Service discovery, banner grabbing, and directory brute-forcing using <code>gobuster</code>.</li>
+        <li><strong>Vulnerability Analysis:</strong> Manual validation of findings and mapping against known CVE/CWE databases.</li>
+        <li><strong>Web Application Testing:</strong> Assessment for injection (SQLi, XSS), logical flaws, and transport layer security.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>2. Reconnaissance Summary</h2>
+    <ul>
+        <li><strong>Open Ports/Services:</strong> TCP/80 (Apache 2.4.7), TCP/22 (OpenSSH 6.6.1p1).</li>
+        <li><strong>Operating System:</strong> Linux (Ubuntu-based distribution, Kernel 3.10-4.8).</li>
+        <li><strong>Infrastructure:</strong> Hosted on Linode (AS63949); no WAF or protective load balancing observed.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>3. Findings Summary Table</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Severity</th>
+            <th>CVSS 3.1</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>VULN-01</td>
+            <td>Cleartext Protocol (HTTP)</td>
+            <td><span class="severity-medium">Medium</span></td>
+            <td>5.9</td>
+            <td>Open</td>
+        </tr>
+        <tr>
+            <td>VULN-02</td>
+            <td>Legacy Software (Apache/OpenSSH)</td>
+            <td><span class="severity-info">Info</span></td>
+            <td>0.0</td>
+            <td>Open</td>
+        </tr>
+    </table>
+</div>
+
+<div class="section">
+    <h2>4. Detailed Findings</h2>
+
+    <h3>VULN-01: Cleartext Protocol (HTTP)</h3>
+    <p><strong>Severity:</strong> <span class="severity-medium">Medium</span> (CVSS 3.1: 5.9 - Vector: AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N)</p>
+    <p><strong>Affected Asset:</strong> http://scanme.nmap.org/ (Port 80)</p>
+    <p><strong>Description:</strong> The web application transmits all data over unencrypted HTTP. Any traffic between the client and the server is susceptible to interception and inspection via Man-in-the-Middle (MitM) attacks.</p>
+    <p><strong>Evidence:</strong> Browser connection confirmed via HTTP/1.1; no TLS handshake initiated.</p>
+    <p><strong>False Positive Assessment:</strong> True Positive. Confirmed via network sniffing and server configuration analysis.</p>
+    <p><strong>Impact:</strong> Exposure of sensitive information transmitted during user sessions.</p>
+    <p><strong>Remediation:</strong> Implement TLS/SSL (HTTPS) using a valid certificate authority (e.g., Let's Encrypt).</p>
+    <p><strong>References:</strong> CWE-319: Cleartext Transmission of Sensitive Information.</p>
+
+    <h3>VULN-02: Legacy Software Components</h3>
+    <p><strong>Severity:</strong> <span class="severity-info">Info</span> (CVSS 3.1: 0.0)</p>
+    <p><strong>Affected Asset:</strong> Entire Host</p>
+    <p><strong>Description:</strong> The server runs Apache 2.4.7 and OpenSSH 6.6.1p1, which are significantly outdated.</p>
+    <p><strong>Evidence:</strong> Server headers and SSH banner disclosure.</p>
+    <p><strong>False Positive Assessment:</strong> While these versions have CVEs, manual analysis confirms no active exploitable surface in this specific static configuration.</p>
+    <p><strong>Impact:</strong> Increased risk of platform-level exploitation if the environment configuration changes.</p>
+    <p><strong>Remediation:</strong> Upgrade to current stable versions of the OS and services as part of standard lifecycle management.</p>
+    <p><strong>References:</strong> CVE-2016-8743, CVE-2016-1907.</p>
+</div>
+
+<div class="section">
+    <h2>5. Remediation Roadmap</h2>
+    <ul>
+        <li><strong>Short-term (0-30 days):</strong> Configure the Apache server to redirect HTTP traffic to an encrypted channel (once HTTPS is deployed) and set HTTP Strict Transport Security (HSTS) headers.</li>
+        <li><strong>Medium-term (30-90 days):</strong> Perform a full OS upgrade to a currently supported Ubuntu LTS release to resolve legacy software dependencies.</li>
+        <li><strong>Long-term:</strong> Implement an automated patching schedule to ensure server components remain within vendor support lifecycles.</li>
+    </ul>
+</div>

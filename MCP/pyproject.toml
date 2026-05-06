@@ -1,0 +1,25 @@
+[project]
+name = "security-toolkit-mcp"
+version = "1.0.0"
+description = "Unified MCP server exposing 60 security and CLI tools for AI agents"
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=2.0.0",
+    "pymetasploit3>=1.0.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["tools*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

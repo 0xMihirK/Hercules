@@ -1,0 +1,137 @@
+<h1 style="color: #2c3e50; border-bottom: 2px solid #2c3e50;">Executive Summary: Security Assessment of scanme.nmap.org</h1>
+
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+    <p><strong>Overview:</strong> Between May 5, 2026, and May 5, 2026, our security team performed a targeted assessment of the <em>scanme.nmap.org</em> external infrastructure. The objective was to identify potential security weaknesses that could be exploited by external threats. The assessment utilized standard industry reconnaissance and vulnerability identification techniques to evaluate the current security posture of public-facing services.</p>
+</div>
+
+<div style="margin-bottom: 20px;">
+    <h2 style="color: #2c3e50;">Overall Security Posture: <span style="color: #f39c12;">D (Needs Improvement)</span></h2>
+    <p>The current infrastructure presents an elevated risk profile primarily due to the use of legacy, end-of-life (EOL) software. While there is no evidence of active compromise, the outdated system architecture makes it significantly easier for attackers to identify and exploit known vulnerabilities. Immediate remediation is required to bring this environment into alignment with standard security best practices.</p>
+</div>
+
+<div style="margin-bottom: 20px;">
+    <h2 style="color: #2c3e50;">Risk Distribution</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse; text-align: center;">
+        <tr style="background-color: #2c3e50; color: white;">
+            <th>Critical</th><th>High</th><th>Medium</th><th>Low</th>
+        </tr>
+        <tr>
+            <td style="color: #c0392b; font-weight: bold;">0</td>
+            <td style="color: #e67e22; font-weight: bold;">0</td>
+            <td style="color: #f39c12; font-weight: bold;">2</td>
+            <td style="color: #3498db; font-weight: bold;">1</td>
+        </tr>
+    </table>
+</div>
+
+<div style="margin-bottom: 20px;">
+    <h2 style="color: #2c3e50;">Key Business Risks</h2>
+    <ul>
+        <li><strong>Unsupported Software Exposure:</strong> The web server operates on software that is no longer supported by its manufacturer. This means security patches for new vulnerabilities are not released, leaving the site permanently exposed to known threats.</li>
+        <li><strong>Increased Attack Surface:</strong> Current configurations allow potential attackers to easily identify valid user accounts, which significantly lowers the barrier for automated password-guessing or brute-force attacks.</li>
+        <li><strong>Potential for Fraud and Defacement:</strong> Minor vulnerabilities, such as missing security headers, increase the risk of site-wide attacks like "Clickjacking," which could be used to manipulate users or damage the organization’s reputation.</li>
+    </ul>
+</div>
+
+<div style="margin-bottom: 20px;">
+    <h2 style="color: #2c3e50;">Strategic Recommendations</h2>
+    <ul>
+        <li><strong>Modernize Infrastructure (Immediate Priority):</strong> Migrate services to a current, supported operating system. Using EOL software is an unacceptable operational risk.</li>
+        <li><strong>Hardening Measures:</strong> Update SSH and web server configurations to disable unnecessary information disclosure, which currently assists attackers in planning their campaigns.</li>
+        <li><strong>Implement Security Headers:</strong> Configure the web server to enforce browser-level security policies to protect visitors from malicious site-tampering.</li>
+        <li><strong>Continuous Monitoring:</strong> Establish a recurring patch management cycle to ensure all public-facing assets remain updated and compliant with security standards.</li>
+    </ul>
+</div>
+
+<div style="background-color: #f1f4f9; padding: 15px; border-left: 5px solid #3498db;">
+    <h3 style="margin-top: 0;">Next Steps</h3>
+    <p>We recommend immediate engagement with the IT operations team to initiate a system migration and patching project. A follow-up verification scan should be scheduled within 45 days to confirm that remediation steps have successfully reduced the risk exposure.</p>
+</div>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+
+    <h1 style="color: #2c3e50; border-bottom: 2px solid #2c3e50;">Vulnerability Assessment Report: scanme.nmap.org</h1>
+
+    <div style="background-color: #f8f9fa; padding: 15px; border-left: 5px solid #2c3e50; margin-bottom: 20px;">
+        <h2 style="margin-top: 0;">1. REPORT METADATA</h2>
+        <p><strong>Report Title:</strong> Vulnerability Assessment Report - scanme.nmap.org</p>
+        <p><strong>Date:</strong> 2026-05-05</p>
+        <p><strong>Target:</strong> http://scanme.nmap.org/</p>
+        <p><strong>Scope:</strong> External infrastructure and web services</p>
+        <p><strong>Tester Info:</strong> Senior Security Consultant</p>
+    </div>
+
+    <h2>2. METHODOLOGY</h2>
+    <p>The assessment followed a structured methodology to identify vulnerabilities across the target infrastructure:</p>
+    <ul>
+        <li><strong>Reconnaissance:</strong> OSINT gathering, DNS enumeration, and host discovery.</li>
+        <li><strong>Enumeration:</strong> Service identification, version probing, and directory brute-forcing.</li>
+        <li><strong>Web Application Testing:</strong> Analysis of HTTP headers, input vectors, and server-side configuration.</li>
+        <li><strong>Vulnerability Analysis:</strong> Comparison of service versions against known CVE databases and configuration benchmarking.</li>
+    </ul>
+
+    <h2>3. RECONNAISSANCE SUMMARY</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr style="background-color: #eee;">
+            <th>Service</th>
+            <th>Port</th>
+            <th>Status/Info</th>
+        </tr>
+        <tr><td>SSH</td><td>22/tcp</td><td>OpenSSH 6.6.1p1</td></tr>
+        <tr><td>HTTP</td><td>80/tcp</td><td>Apache 2.4.7 (Ubuntu)</td></tr>
+        <tr><td>Nping-echo</td><td>9929/tcp</td><td>Educational/Test Service</td></tr>
+        <tr><td>Unknown</td><td>31337/tcp</td><td>TCP Wrapped</td></tr>
+    </table>
+    <p><strong>Infrastructure:</strong> Hosted on Linode (Newark, NJ). OS identified as Ubuntu 14.04 (Trusty Tahr).</p>
+
+    <h2>4. FINDINGS SUMMARY TABLE</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <tr style="background-color: #2c3e50; color: white;">
+            <th>ID</th><th>Title</th><th>Severity</th><th>CVSS 3.1</th><th>Status</th>
+        </tr>
+        <tr style="background-color: #fcf8e3;"><td>VULN-01</td><td>End-of-Life Software (Apache)</td><td>Medium</td><td>5.3</td><td>Open</td></tr>
+        <tr style="background-color: #fcf8e3;"><td>VULN-02</td><td>SSH User Enumeration</td><td>Medium</td><td>5.3</td><td>Open</td></tr>
+        <tr style="background-color: #f9f9f9;"><td>VULN-03</td><td>Missing Security Headers</td><td>Low</td><td>4.3</td><td>Open</td></tr>
+    </table>
+
+    <h2>5. DETAILED FINDINGS</h2>
+
+    <h3>VULN-01: End-of-Life Software (Apache)</h3>
+    <p><strong>Severity:</strong> <span style="color: #f39c12; font-weight: bold;">Medium</span> | <strong>CVSS 3.1:</strong> 5.3 (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p><strong>Affected Asset:</strong> http://scanme.nmap.org/ (Port 80)</p>
+    <p><strong>Description:</strong> The web server is running Apache 2.4.7, which is severely outdated and no longer receives security updates from the vendor.</p>
+    <p><strong>Evidence:</strong> HTTP response header: <code>Server: Apache/2.4.7 (Ubuntu)</code></p>
+    <p><strong>False Positive Assessment:</strong> True positive; confirmed via banner grabbing and server uptime/version tracking.</p>
+    <p><strong>Impact:</strong> Vulnerable to numerous public exploits including DoS and information disclosure.</p>
+    <p><strong>Remediation:</strong> Upgrade to the latest stable version of Apache (2.4.x or newer).</p>
+    <p><strong>References:</strong> CVE-2017-9798, CWE-1104</p>
+
+    <h3>VULN-02: SSH User Enumeration</h3>
+    <p><strong>Severity:</strong> <span style="color: #f39c12; font-weight: bold;">Medium</span> | <strong>CVSS 3.1:</strong> 5.3 (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p><strong>Affected Asset:</strong> scanme.nmap.org (Port 22)</p>
+    <p><strong>Description:</strong> The OpenSSH version 6.6.1p1 allows remote attackers to confirm the existence of valid system accounts through response timing analysis.</p>
+    <p><strong>Evidence:</strong> Tool-based verification using timing differential analysis.</p>
+    <p><strong>False Positive Assessment:</strong> True positive; documented behavior for this specific OpenSSH version.</p>
+    <p><strong>Impact:</strong> Facilitates targeted brute-force attacks by identifying valid usernames.</p>
+    <p><strong>Remediation:</strong> Upgrade to current OpenSSH version and configure <code>LoginGraceTime</code>/<code>MaxAuthTries</code>.</p>
+    <p><strong>References:</strong> CVE-2016-6210, CWE-204</p>
+
+    <h3>VULN-03: Missing Security Headers</h3>
+    <p><strong>Severity:</strong> <span style="color: #3498db; font-weight: bold;">Low</span> | <strong>CVSS 3.1:</strong> 4.3 (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p><strong>Affected Asset:</strong> http://scanme.nmap.org/</p>
+    <p><strong>Description:</strong> The application fails to serve necessary security headers like <code>Content-Security-Policy</code>, <code>X-Frame-Options</code>, and <code>X-Content-Type-Options</code>.</p>
+    <p><strong>Evidence:</strong> Lack of identified headers in HTTP response.</p>
+    <p><strong>False Positive Assessment:</strong> True positive; inspection confirmed absence in headers.</p>
+    <p><strong>Impact:</strong> Increased risk of Clickjacking and MIME-type sniffing.</p>
+    <p><strong>Remediation:</strong> Configure Apache to inject standard security headers.</p>
+    <p><strong>References:</strong> CWE-693, OWASP Secure Headers Project</p>
+
+    <h2>6. REMEDIATION ROADMAP</h2>
+    <ul>
+        <li><strong>Short-term (0-30 days):</strong> Apply OS-level updates and patches to address EOL software (Apache/OpenSSH). Disable SSH banner disclosure.</li>
+        <li><strong>Medium-term (30-90 days):</strong> Implement hardened configuration for all public-facing services. Audit port 31337 for unnecessary exposure.</li>
+        <li><strong>Long-term:</strong> Migration to a supported, modern operating system distribution.</li>
+    </ul>
+</div>

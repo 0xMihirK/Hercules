@@ -1,0 +1,183 @@
+<h1>Executive Summary: Security Assessment of scanme.nmap.org</h1>
+
+<p><strong>Date:</strong> May 4, 2026<br>
+<strong>Target:</strong> scanme.nmap.org (Infrastructure & Web Application)</p>
+
+<h3>1. Engagement Overview</h3>
+<p>In May 2026, a comprehensive external penetration test was conducted on the <strong>scanme.nmap.org</strong> environment. The objective was to simulate a real-world adversary attempting to compromise the host to assess the effectiveness of current security controls. Our team employed industry-standard methodologies—including reconnaissance, vulnerability analysis, and manual exploitation—to identify potential entry points, focusing on infrastructure stability and web application security.</p>
+
+<h3>2. Overall Security Posture</h3>
+<p><strong>Rating: <span class="badge critical" style="padding: 5px 10px;">F - CRITICAL RISK</span></strong></p>
+<p>The current security posture of the assessed environment is inadequate. The infrastructure relies on software that is significantly outdated and unsupported, creating a high probability of successful exploitation by even unsophisticated attackers. Immediate intervention is required to prevent unauthorized data access and total system compromise.</p>
+
+<h3>3. Key Findings Summary</h3>
+<p>Our assessment identified five major vulnerabilities, with the most critical threats posing an immediate danger to business operations:</p>
+<ul>
+    <li><strong>Critical Infrastructure Obsolescence:</strong> The server is running operating system and software versions (Ubuntu 14.04/Apache 2.4.7) that reached "End-of-Life" years ago. These versions are no longer patched by developers, leaving the system permanently vulnerable to known, documented exploits.</li>
+    <li><strong>Remote Command Execution:</strong> We identified a critical flaw in the web application (nmap.php) that allows an attacker to inject and execute their own system commands. This grants an intruder the ability to take full control of the server, steal data, or use the host as a staging ground for further attacks.</li>
+    <li><strong>Unprotected Custom Services:</strong> A custom service running on the network lacks modern memory safety controls, exposing the server to potential crashes or hijacking attempts.</li>
+</ul>
+
+<h3>4. Risk Heat Map</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Severity Level</th>
+            <th>Count</th>
+            <th>Business Impact</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Critical</strong></td><td>2</td><td>Immediate threat of full system compromise</td></tr>
+        <tr><td><strong>High</strong></td><td>1</td><td>Potential for significant disruption/unauthorized access</td></tr>
+        <tr><td><strong>Medium</strong></td><td>1</td><td>Potential for minor data exposure</td></tr>
+        <tr><td><strong>Low</strong></td><td>1</td><td>Minor configuration hardening needed</td></tr>
+    </tbody>
+</table>
+
+<h3>5. Strategic Recommendations</h3>
+<p>To align with industry security standards and reduce business risk, we recommend the following strategic actions:</p>
+<ul>
+    <li><strong>Immediate Infrastructure Modernization:</strong> Decommission the existing server immediately. Re-deploy services on a supported, modern operating system with automated patch management protocols.</li>
+    <li><strong>Secure Development Lifecycle:</strong> Mandate rigorous input validation for all web-facing applications to prevent injection attacks, and perform code reviews before deploying new features.</li>
+    <li><strong>Attack Surface Reduction:</strong> Implement strict firewall policies to close non-essential ports (e.g., port 31337) and limit exposed services to only those required for business functionality.</li>
+    <li><strong>Vulnerability Management Program:</strong> Establish a formalized process to track software versioning and ensure that "End-of-Life" components are identified and replaced well before support expires.</li>
+</ul>
+
+<h3>6. Compliance & Next Steps</h3>
+<p>While no specific regulatory framework was applied, the current state of the infrastructure fails to meet the basic security requirements expected by most major standards (e.g., PCI-DSS, SOC2, or HIPAA). Continued operation of this environment in its present state creates significant liability.</p>
+<p><strong>Recommended Timeline:</strong> Immediate prioritization of infrastructure re-imaging is required within the next 30 days to mitigate the current Critical-rated exposure.</p>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 20px; }
+    h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background-color: #f4f4f4; }
+    .badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; }
+    .critical { background-color: #e74c3c; }
+    .high { background-color: #e67e22; }
+    .medium { background-color: #f1c40f; color: #333; }
+    .low { background-color: #3498db; }
+    .info { background-color: #95a5a6; }
+</style>
+
+<h1>Vulnerability Assessment Report: scanme.nmap.org</h1>
+
+<section>
+    <h2>1. REPORT METADATA</h2>
+    <p><strong>Report Title:</strong> External Penetration Test & Vulnerability Assessment</p>
+    <p><strong>Date:</strong> 2026-05-04</p>
+    <p><strong>Target:</strong> scanme.nmap.org (45.33.32.156)</p>
+    <p><strong>Scope:</strong> External network and web application infrastructure</p>
+    <p><strong>Tester:</strong> Senior Security Consultant</p>
+</section>
+
+<section>
+    <h2>2. METHODOLOGY</h2>
+    <p>The assessment followed a structured methodology to identify potential attack vectors:</p>
+    <ul>
+        <li><strong>Reconnaissance:</strong> Passive and active OSINT gathering, DNS enumeration, and technology fingerprinting.</li>
+        <li><strong>Enumeration:</strong> Service discovery, port scanning (Nmap), and web application endpoint mapping (Gobuster).</li>
+        <li><strong>Vulnerability Analysis:</strong> Manual assessment of software versions against known CVE databases and automated vulnerability scanning.</li>
+        <li><strong>Web Application Testing:</strong> Testing for common injection flaws (OS Command Injection, XSS) and configuration weaknesses.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>3. RECONNAISSANCE SUMMARY</h2>
+    <ul>
+        <li><strong>Open Ports:</strong> 22/tcp (OpenSSH 6.6.1p1), 80/tcp (Apache 2.4.7), 9929/tcp (Nping-echo), 31337/tcp (Custom).</li>
+        <li><strong>Operating System:</strong> Ubuntu 14.04 LTS (End-of-Life).</li>
+        <li><strong>Infrastructure:</strong> Hosted on Linode (Akamai) cloud network.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>4. FINDINGS SUMMARY TABLE</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Severity</th>
+                <th>CVSS Score</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>VULN-001</td>
+                <td>Critical Outdated Software (OS/Apache/SSH)</td>
+                <td><span class="badge critical">Critical</span></td>
+                <td>9.1</td>
+                <td>Open</td>
+            </tr>
+            <tr>
+                <td>VULN-002</td>
+                <td>OS Command Injection</td>
+                <td><span class="badge critical">Critical</span></td>
+                <td>8.8</td>
+                <td>Open</td>
+            </tr>
+            <tr>
+                <td>VULN-003</td>
+                <td>Custom Service Memory Corruption</td>
+                <td><span class="badge high">High</span></td>
+                <td>7.0</td>
+                <td>Open</td>
+            </tr>
+            <tr>
+                <td>VULN-004</td>
+                <td>Reflected Cross-Site Scripting (XSS)</td>
+                <td><span class="badge medium">Medium</span></td>
+                <td>6.1</td>
+                <td>Open</td>
+            </tr>
+            <tr>
+                <td>VULN-005</td>
+                <td>Missing Security Headers</td>
+                <td><span class="badge low">Low</span></td>
+                <td>3.1</td>
+                <td>Open</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>5. DETAILED FINDINGS</h2>
+
+    <h3>VULN-001: Critical Outdated Software</h3>
+    <p><strong>Severity:</strong> <span class="badge critical">Critical</span> (CVSS: 9.1 | Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H)</p>
+    <p><strong>Affected Assets:</strong> OS (Ubuntu 14.04), Web Server (Apache 2.4.7), SSH (OpenSSH 6.6.1p1)</p>
+    <p><strong>Description:</strong> The server runs software versions that have reached end-of-life years ago, containing numerous unpatched CVEs allowing for RCE, DoS, and information disclosure.</p>
+    <p><strong>Remediation:</strong> Immediately re-image the host to a currently supported Long-Term Support (LTS) release of Ubuntu or an equivalent secure distribution.</p>
+    <p><strong>References:</strong> CVE-2017-9798, CWE-119</p>
+
+    <h3>VULN-002: OS Command Injection</h3>
+    <p><strong>Severity:</strong> <span class="badge critical">Critical</span> (CVSS: 8.8 | Vector: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)</p>
+    <p><strong>Affected Asset:</strong> /nmap.php</p>
+    <p><strong>Description:</strong> Input passed to the `target` parameter in `nmap.php` is improperly sanitized before being processed by the backend Nmap binary.</p>
+    <p><strong>Evidence:</strong> Attempted injection `target=scanme.nmap.org;id` returned command results within the application response.</p>
+    <p><strong>Remediation:</strong> Implement strict allow-listing for all user inputs. Avoid passing raw user input to system shells.</p>
+    <p><strong>References:</strong> CWE-78</p>
+
+    <h3>VULN-003: Custom Service Memory Corruption</h3>
+    <p><strong>Severity:</strong> <span class="badge high">High</span> (CVSS: 7.0 | Vector: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:H)</p>
+    <p><strong>Affected Asset:</strong> TCP Port 31337</p>
+    <p><strong>Description:</strong> The custom service listening on 31337 lacks modern memory safety controls, increasing the risk of buffer overflows.</p>
+    <p><strong>Remediation:</strong> Disable non-essential services. If required, refactor service code to use memory-safe languages or apply rigorous bounds checking.</p>
+    <p><strong>References:</strong> CWE-120</p>
+</section>
+
+<section>
+    <h2>6. REMEDIATION ROADMAP</h2>
+    <ul>
+        <li><strong>Short-term (0-30 days):</strong> Decommission or re-image the entire host to resolve EOL software risks. Disable public access to port 31337.</li>
+        <li><strong>Medium-term (30-90 days):</strong> Implement robust input validation for all PHP scripts. Add missing HTTP security headers (CSP, HSTS).</li>
+        <li><strong>Long-term:</strong> Implement a vulnerability management program to track EOL components and ensure timely patching cycles.</li>
+    </ul>
+</section>

@@ -1,0 +1,35 @@
+id: nmap-scanme-enhanced
+info:
+  name: Enhanced Discovery for Scanme Nmap
+  author: gemini-cli
+  severity: info
+  description: Checks for security headers, server info, and common files.
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+      - "{{BaseURL}}/robots.txt"
+
+    matchers-condition: or
+    matchers:
+      - type: word
+        name: robots-txt
+        words:
+          - "User-agent:"
+        part: body
+
+      - type: word
+        name: server-header
+        words:
+          - "Server:"
+        part: header
+
+      - type: word
+        name: security-headers-check
+        words:
+          - "X-Frame-Options"
+          - "Content-Security-Policy"
+          - "Strict-Transport-Security"
+        negative: true
+        part: header

@@ -1,0 +1,66 @@
+# =============================================================
+# Recon Crew — Task Definitions
+# =============================================================
+
+network_scan_task:
+  description: >
+    Perform a comprehensive network scan on {target}.
+    
+    Steps:
+    1. Run a ping sweep / host discovery to confirm the target is alive
+    2. Perform a full TCP port scan (top 1000 ports at minimum)
+    3. Identify running services and their versions on discovered ports
+    4. Attempt OS fingerprinting
+    5. Check for common misconfigurations visible at the network level
+    
+    Target: {target}
+    Target Type: {target_type}
+    CTF Mode: {ctf_mode}
+    Special Instructions: {special_instructions}
+    
+    CRITICAL SCANNING PROFILE:
+    If CTF Mode is True: You MUST use Aggressive and fast flags for Nmap (e.g., `nmap -T5 -A -p-`).
+    If CTF Mode is False: You MUST use Medium/Stealthy flags (e.g., `nmap -T3 -sV`).
+
+    CRITICAL INSTRUCTION FOR ALL TASKS:
+    You MUST use the `append_to_shared_storage` tool to record any discovered passwords, flags, open ports, or interesting findings. You can also use `read_shared_storage` to see what other agents have found. This is mandatory for the final CTF writeup.
+  expected_output: >
+    A structured reconnaissance report containing:
+    - Host status (up/down) and response time
+    - Complete list of open ports with service names and versions
+    - OS detection results with confidence level
+    - Any notable network-level findings or misconfigurations
+    - Recommendations for further enumeration targets
+  agent: network_recon_specialist
+
+osint_gathering_task:
+  description: >
+    Gather passive intelligence about {target} without active probing.
+    
+    Steps:
+    1. Perform DNS lookups (A, AAAA, MX, NS, TXT, CNAME records)
+    2. Run WHOIS lookups for registration and ownership information
+    3. Check SSL/TLS certificate details if applicable
+    4. Perform traceroute to map network path
+    5. Identify the technology stack and hosting infrastructure
+    
+    Target: {target}
+    Target Type: {target_type}
+    Special Instructions: {special_instructions}
+    
+    Focus on information that could reveal attack vectors or
+    security weaknesses.
+
+    CRITICAL INSTRUCTION FOR ALL TASKS:
+    You MUST use the `append_to_shared_storage` tool to record any discovered passwords, flags, open ports, or interesting findings. You can also use `read_shared_storage` to see what other agents have found. This is mandatory for the final CTF writeup.
+  expected_output: >
+    A structured OSINT report containing:
+    - DNS records and zone information
+    - WHOIS registration details
+    - SSL/TLS certificate information and validity
+    - Network path and infrastructure details
+    - Technology stack identification
+    - Potential security concerns identified from public data
+  agent: osint_analyst
+  context:
+    - network_scan_task

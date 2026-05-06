@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: auto; padding: 20px; }
+    h1, h2 { color: #2c3e50; border-bottom: 2px solid #2c3e50; padding-bottom: 10px; }
+    .report-metadata { background: #f8f9fa; padding: 15px; border-left: 5px solid #2c3e50; margin-bottom: 20px; }
+    .rating-box { text-align: center; padding: 20px; background: #fff3f3; border: 2px solid #d9534f; margin: 20px 0; }
+    .rating-score { font-size: 3em; font-weight: bold; color: #d9534f; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .severity { font-weight: bold; padding: 5px 10px; border-radius: 4px; color: white; }
+    .critical { background-color: #d9534f; }
+    .high { background-color: #f0ad4e; }
+    .medium { background-color: #5bc0de; }
+</style>
+</head>
+<body>
+
+    <h1>Executive Summary: Security Posture Assessment</h1>
+
+    <div class="report-metadata">
+        <p><strong>Engagement:</strong> Vulnerability Assessment of scanme.nmap.org</p>
+        <p><strong>Date:</strong> May 4, 2026</p>
+        <p><strong>Objective:</strong> To identify security weaknesses that could threaten operational continuity or data integrity.</p>
+    </div>
+
+    <div class="rating-box">
+        <h3>Overall Security Posture Rating</h3>
+        <div class="rating-score">D+</div>
+        <p><strong>Risk Level: High</strong> | Immediate remediation required to mitigate operational disruption.</p>
+    </div>
+
+    <h2>1. Executive Overview</h2>
+    <p>We conducted a targeted vulnerability assessment of the scanme.nmap.org infrastructure. The assessment identifies significant gaps in software lifecycle management. Our findings indicate that the environment relies on legacy software components that are no longer supported by their vendors, exposing the organization to unnecessary security risks and potential service disruptions.</p>
+
+    <h2>2. Key Business Risks</h2>
+    <p>The following issues represent the most immediate threats to our infrastructure:</p>
+    <ul>
+        <li><strong>Service Continuity Risk:</strong> The web server is running outdated software (Apache 2.4.7), which is vulnerable to known techniques that can crash the service, leading to unplanned downtime.</li>
+        <li><strong>Increased Attack Surface:</strong> By exposing specific version details of our server software, we provide attackers with a "roadmap" to identify and exploit known weaknesses in our environment.</li>
+        <li><strong>Unsupported Infrastructure:</strong> The use of end-of-life (EOL) software means that any newly discovered vulnerabilities will not be patched by the vendor, leaving the organization permanently exposed.</li>
+    </ul>
+
+    <h2>3. Severity Distribution</h2>
+    <table>
+        <tr>
+            <th>Severity</th>
+            <th>Count</th>
+            <th>Business Impact</th>
+        </tr>
+        <tr>
+            <td>High</td>
+            <td>1</td>
+            <td>High potential for service disruption (Denial of Service).</td>
+        </tr>
+        <tr>
+            <td>Medium</td>
+            <td>1</td>
+            <td>Increased vulnerability to unauthorized access or probing.</td>
+        </tr>
+    </table>
+
+    <h2>4. Strategic Recommendations</h2>
+    <ul>
+        <li><strong>Modernize Infrastructure:</strong> Immediately prioritize the upgrade of core services (Apache/OpenSSH) to modern, supported versions.</li>
+        <li><strong>Implement Lifecycle Management:</strong> Establish a policy for regular software audits to ensure no end-of-life systems remain in production.</li>
+        <li><strong>Hardening & Exposure Reduction:</strong> Reconfigure services to suppress non-essential information banners, limiting the intelligence available to unauthorized third parties.</li>
+        <li><strong>Establish Proactive Maintenance:</strong> Integrate automated vulnerability scanning into the monthly maintenance cycle to detect and remediate risks before they can be exploited.</li>
+    </ul>
+
+    <h2>5. Next Steps</h2>
+    <p>We recommend a phased remediation approach starting immediately:</p>
+    <ul>
+        <li><strong>Days 0-30:</strong> Patch the identified EOL software components.</li>
+        <li><strong>Days 31-60:</strong> Conduct a follow-up verification scan to ensure risk reduction and validate patch effectiveness.</li>
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<h1>Executive Summary: Security Assessment of scanme.nmap.org</h1>
+
+<p><strong>Date:</strong> May 5, 2026<br>
+<strong>Scope:</strong> Public-facing web and network services associated with http://scanme.nmap.org/</p>
+
+<h2>1. Engagement Overview</h2>
+<p>In May 2026, our security team conducted a targeted vulnerability assessment of the infrastructure hosting <em>scanme.nmap.org</em>. The objective was to evaluate the security posture of these public-facing services against industry-standard benchmarks. Our approach involved a systematic review of the network perimeter, service configurations, and software versions to identify potential exposure points that could be leveraged by external threats.</p>
+
+<h2>2. Overall Security Posture</h2>
+<p><strong>Rating: B- (Moderate Risk)</strong></p>
+<p>The overall security posture is considered stable for a public testing environment. While there are no immediate indicators of compromise, the infrastructure relies on legacy software versions that are no longer receiving security updates. This creates a "technical debt" that increases the organization's risk profile over time. The environment is appropriately isolated, which mitigates the impact of these findings.</p>
+
+<h2>3. Risk Distribution</h2>
+<table>
+    <tr>
+        <th>Severity</th>
+        <th>Count</th>
+        <th>Business Impact</th>
+    </tr>
+    <tr>
+        <td><span class="badge critical">Critical</span></td>
+        <td>0</td>
+        <td>No immediate threat to business operations.</td>
+    </tr>
+    <tr>
+        <td><span class="badge high">High</span></td>
+        <td>0</td>
+        <td>No immediate threat to business operations.</td>
+    </tr>
+    <tr>
+        <td><span class="badge medium">Medium</span></td>
+        <td>2</td>
+        <td>Increased risk of information exposure or unauthorized access attempts.</td>
+    </tr>
+    <tr>
+        <td><span class="badge low">Low</span></td>
+        <td>0</td>
+        <td>N/A</td>
+    </tr>
+</table>
+
+<h2>4. Key Findings Summary</h2>
+<p>The assessment identified two primary areas of concern related to software currency:</p>
+<ul>
+    <li><strong>Legacy Software Infrastructure (Apache & OpenSSH):</strong> The web server (Apache) and the remote access service (OpenSSH) are running versions that have reached their "End-of-Life." These versions lack the modern security defenses built into contemporary software, leaving them susceptible to known, documented security vulnerabilities.</li>
+    <li><strong>Business Impact:</strong> While the current usage of this server is for public testing, utilizing unpatched software sets a poor security precedent. Should this infrastructure ever be repurposed for sensitive data or internal connectivity, these vulnerabilities would become significant vectors for unauthorized data access or service disruption.</li>
+</ul>
+
+<h2>5. Strategic Recommendations</h2>
+<p>To ensure long-term stability and security, we recommend the following strategic actions:</p>
+<ul>
+    <li><strong>Implement Patch Management Cycles:</strong> Establish a recurring schedule to update core services. Moving away from legacy software is essential to closing the gap between current security standards and existing configurations.</li>
+    <li><strong>Adopt Containerization Strategy:</strong> Transition the <em>scanme</em> environment to containerized architecture (e.g., Docker). This approach allows for automated, rapid deployment of hardened, up-to-date environments, significantly reducing the manual effort required for maintenance.</li>
+    <li><strong>Enforce Network Isolation:</strong> Continue to maintain strict network segmentation. Ensuring this sandbox remains physically or logically separated from production systems is a critical control that prevents the risk of lateral movement should an incident occur.</li>
+</ul>
+
+<h2>6. Compliance & Next Steps</h2>
+<p>There are no specific regulatory frameworks currently mandated for this sandbox environment. However, aligning with the recommendations above serves as "due diligence" to prevent this platform from becoming a liability. We recommend remediating the identified software versions within the next 90 days as part of a routine maintenance window.</p>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: auto; padding: 20px; }
+    h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f8f9fa; }
+    .badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; }
+    .critical { background-color: #d9534f; }
+    .high { background-color: #f0ad4e; }
+    .medium { background-color: #f0ad4e; }
+    .low { background-color: #5bc0de; }
+    .info { background-color: #5bc0de; }
+</style>
+
+<h1>Vulnerability Assessment Report: http://scanme.nmap.org/</h1>
+
+<h2>1. REPORT METADATA</h2>
+<ul>
+    <li><strong>Report Title:</strong> Vulnerability Assessment Report - scanme.nmap.org</li>
+    <li><strong>Date:</strong> 2026-05-05</li>
+    <li><strong>Target:</strong> http://scanme.nmap.org/ (45.33.32.156)</li>
+    <li><strong>Scope:</strong> Public-facing web and network services</li>
+    <li><strong>Tester:</strong> Professional Security Assessment Team</li>
+</ul>
+
+<h2>2. METHODOLOGY</h2>
+<p>The assessment followed a standardized industry approach (PTES):</p>
+<ul>
+    <li><strong>Reconnaissance:</strong> OSINT, DNS analysis, and WHOIS lookups.</li>
+    <li><strong>Enumeration:</strong> Service identification, version discovery, and directory brute-forcing.</li>
+    <li><strong>Vulnerability Analysis:</strong> CVE mapping based on identified software versions and manual assessment of service configurations.</li>
+    <li><strong>Web Application Testing:</strong> Manual and automated inspection for injection (SQLi, XSS) and logic flaws.</li>
+</ul>
+
+<h2>3. RECONNAISSANCE SUMMARY</h2>
+<ul>
+    <li><strong>Open Ports:</strong> 22 (SSH), 80 (HTTP), 9929 (Nping), 31337 (TCPwrapped).</li>
+    <li><strong>Identified OS:</strong> Ubuntu (Linux).</li>
+    <li><strong>Infrastructure:</strong> Hosted by Linode/Akamai; functioning as a public testing sandbox.</li>
+</ul>
+
+<h2>4. FINDINGS SUMMARY TABLE</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Severity</th>
+        <th>CVSS 3.1</th>
+        <th>Affected Asset</th>
+    </tr>
+    <tr>
+        <td>VULN-01</td>
+        <td>Outdated Apache HTTPD</td>
+        <td><span class="badge medium">Medium</span></td>
+        <td>5.3</td>
+        <td>Port 80</td>
+    </tr>
+    <tr>
+        <td>VULN-02</td>
+        <td>Outdated OpenSSH</td>
+        <td><span class="badge medium">Medium</span></td>
+        <td>5.9</td>
+        <td>Port 22</td>
+    </tr>
+</table>
+
+<h2>5. DETAILED FINDINGS</h2>
+
+<h3>VULN-01: Outdated Apache HTTPD</h3>
+<ul>
+    <li><strong>Severity:</strong> Medium (CVSS 3.1: 5.3 AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</li>
+    <li><strong>Affected Asset:</strong> Port 80 / Apache 2.4.7</li>
+    <li><strong>Description:</strong> The server is running Apache 2.4.7, which has reached End-of-Life and is susceptible to multiple historical vulnerabilities, including information disclosure flaws.</li>
+    <li><strong>Evidence:</strong> HTTP response header: <code>Server: Apache/2.4.7 (Ubuntu)</code></li>
+    <li><strong>False Positive Assessment:</strong> True positive. The server banner explicitly identifies a legacy version, confirmed by service enumeration.</li>
+    <li><strong>Impact:</strong> Potential for information leakage; minimal impact due to the static, non-sensitive nature of the site.</li>
+    <li><strong>Remediation:</strong> Upgrade to the latest stable Apache 2.4.x release.</li>
+    <li><strong>References:</strong> CVE-2017-9798, CWE-200</li>
+</ul>
+
+<h3>VULN-02: Outdated OpenSSH</h3>
+<ul>
+    <li><strong>Severity:</strong> Medium (CVSS 3.1: 5.9 AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N)</li>
+    <li><strong>Affected Asset:</strong> Port 22 / OpenSSH 6.6.1p1</li>
+    <li><strong>Description:</strong> The SSH service is running a significantly outdated version. This lacks modern hardening and is prone to various historical vulnerabilities.</li>
+    <li><strong>Evidence:</strong> SSH banner grab: <code>SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2</code></li>
+    <li><strong>False Positive Assessment:</strong> True positive. Confirmed via banner grab.</li>
+    <li><strong>Impact:</strong> Increased risk of exploitation if authentication is weak.</li>
+    <li><strong>Remediation:</strong> Upgrade OpenSSH to the latest version and ensure robust key-based authentication.</li>
+    <li><strong>References:</strong> CVE-2016-6210, CWE-16</li>
+</ul>
+
+<h2>6. REMEDIATION ROADMAP</h2>
+<ul>
+    <li><strong>Short-term (0-30 days):</strong> Apply basic network segmentation to ensure the sandbox remains isolated from any internal production networks.</li>
+    <li><strong>Medium-term (30-90 days):</strong> Update the underlying OS and software packages (Apache, OpenSSH) to current stable versions if the project intends to maintain the sandbox for the long term.</li>
+    <li><strong>Long-term:</strong> Implement a containerized approach (e.g., Docker) for future iterations of this sandbox to allow for rapid, isolated environment disposal and patching.</li>
+</ul>

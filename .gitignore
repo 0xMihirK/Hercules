@@ -1,0 +1,47 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+
+# Runtime output artifacts
+output/tmp*
+output/msfrc_*
+output/nmap_*
+*.log
+
+# Testing
+.pytest_cache/
+
+# Metasploit runtime
+msf4/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Hercules Specific Exclusions
+/report/
+/tests/
+/tectonic
+*.tar.gz
+MCP/output/
+MCP/data/
+
+# Node/React
+node_modules/
+.env

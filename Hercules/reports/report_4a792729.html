@@ -1,0 +1,183 @@
+<h1>Executive Summary: Security Assessment of scanme.nmap.org</h1>
+
+<div class="section metadata">
+    <p><strong>Assessment Date:</strong> May 4, 2026</p>
+    <p><strong>Target:</strong> scanme.nmap.org (45.33.32.156)</p>
+    <p><strong>Overall Risk Rating:</strong> <span class="badge" style="background-color: #f39c12;">MODERATE</span></p>
+</div>
+
+<div class="section">
+    <h2>1. Engagement Overview</h2>
+    <p>We conducted an external security assessment of the scanme.nmap.org infrastructure to identify potential vulnerabilities that could be exploited by unauthorized actors. This assessment simulated real-world reconnaissance and vulnerability discovery techniques to evaluate the site's exposure. The review focused on identifying outdated software components and configurations that deviate from current security best practices.</p>
+</div>
+
+<div class="section">
+    <h2>2. Risk Posture and Impact</h2>
+    <p>The overall security posture is rated as <strong>Moderate</strong>. While there are no critical-level vulnerabilities indicating an immediate total system compromise, the environment is running outdated software that lacks modern protection against automated attacks. These vulnerabilities increase the likelihood that an attacker could successfully perform reconnaissance or initiate credential-based attacks against the infrastructure.</p>
+    
+    <h3>Risk Distribution</h3>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>Risk Level</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Critical</td><td>0</td></tr>
+            <tr><td>High</td><td>0</td></tr>
+            <tr><td>Medium</td><td>3</td></tr>
+            <tr><td>Low</td><td>0</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>3. Key Business Risks</h2>
+    <p>The assessment identified three primary technical concerns that translate to the following business risks:</p>
+    <ul>
+        <li><strong>Credential Exposure & Brute-Force Vulnerability:</strong> Due to outdated remote access protocols, the system is susceptible to automated "guessing" attacks. This increases the risk of unauthorized account access if strong, multi-factor authentication is not strictly enforced.</li>
+        <li><strong>System Integrity and Manipulation:</strong> Outdated web server software could theoretically allow an attacker to interfere with web traffic. This could lead to users being served malicious content or bypassing intended web security controls.</li>
+        <li><strong>Operational Latency:</strong> The reliance on legacy software versions makes the system difficult to maintain and potentially incompatible with modern, secure security configurations, creating a "technical debt" that hinders long-term operational resilience.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>4. Strategic Recommendations</h2>
+    <p>To improve the security posture and reduce the likelihood of a successful security incident, we recommend the following strategic actions:</p>
+    <ul>
+        <li><strong>Immediate Patch Management:</strong> Prioritize an emergency update cycle to replace all End-of-Life (EOL) or deprecated software versions, specifically the web server (Apache) and remote management service (OpenSSH).</li>
+        <li><strong>Hardened Access Controls:</strong> Transition from password-based authentication to certificate-based authentication for all administrative access. This effectively neutralizes the risks associated with the identified credential-guessing vulnerabilities.</li>
+        <li><strong>Establish Lifecycle Governance:</strong> Implement an automated vulnerability management program to ensure software components are monitored and updated before they reach EOL status, ensuring continuous compliance with industry security standards.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>5. Compliance and Next Steps</h2>
+    <p>While no formal regulatory framework was specified for this assessment, the findings represent a departure from standard "due care" practices required for general data protection. </p>
+    <p><strong>Recommended Next Steps:</strong></p>
+    <ol>
+        <li><strong>Within 30 Days:</strong> Execute core software patches and disable informational banners that leak internal configuration details.</li>
+        <li><strong>Within 90 Days:</strong> Perform a configuration audit to implement hardened SSH settings.</li>
+        <li><strong>Continuous:</strong> Schedule a follow-up assessment to verify that the remediation steps have been effective and that no new high-risk vulnerabilities have been introduced.</li>
+    </ol>
+</div>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 20px; }
+    h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    .report-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .report-table th, .report-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    .report-table th { background-color: #f8f9fa; }
+    .badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; font-size: 0.85em; }
+    .severity-high { background-color: #e74c3c; }
+    .severity-medium { background-color: #f39c12; }
+    .severity-low { background-color: #3498db; }
+    .section { margin-bottom: 30px; }
+    .metadata { background: #f4f7f6; padding: 15px; border-radius: 5px; }
+</style>
+
+<h1>Vulnerability Assessment Report: scanme.nmap.org</h1>
+
+<div class="section metadata">
+    <p><strong>Report Title:</strong> Security Assessment Report - scanme.nmap.org</p>
+    <p><strong>Date:</strong> May 4, 2026</p>
+    <p><strong>Target:</strong> http://scanme.nmap.org/ (45.33.32.156)</p>
+    <p><strong>Scope:</strong> External Infrastructure Assessment</p>
+    <p><strong>Lead Security Consultant:</strong> Automated Security Assessment System</p>
+</div>
+
+<div class="section">
+    <h2>1. Methodology</h2>
+    <p>The assessment followed a structured methodology to ensure comprehensive coverage of the target infrastructure:</p>
+    <ul>
+        <li><strong>Reconnaissance:</strong> OSINT gathering, DNS enumeration, and infrastructure fingerprinting.</li>
+        <li><strong>Enumeration:</strong> Service identification and banner analysis to determine technology stack versions.</li>
+        <li><strong>Web Application Testing:</strong> Automated directory discovery and analysis of request/response headers.</li>
+        <li><strong>Vulnerability Analysis:</strong> Comparison of detected software versions against public vulnerability databases (CVEs) and assessment of potential attack chains.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>2. Reconnaissance Summary</h2>
+    <p><strong>Open Ports:</strong> Port 22 (SSH), Port 80 (HTTP)</p>
+    <p><strong>Operating System:</strong> Ubuntu Linux (Long-term support release)</p>
+    <p><strong>Infrastructure:</strong> Hosted on Linode cloud infrastructure. Intended as an educational testing target.</p>
+</div>
+
+<div class="section">
+    <h2>3. Findings Summary Table</h2>
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Severity</th>
+                <th>CVSS 3.1</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>VULN-001</td>
+                <td>SSH User Enumeration</td>
+                <td><span class="badge severity-medium">Medium</span></td>
+                <td>5.3</td>
+                <td>Confirmed</td>
+            </tr>
+            <tr>
+                <td>VULN-002</td>
+                <td>Apache HTTP Request Smuggling</td>
+                <td><span class="badge severity-medium">Medium</span></td>
+                <td>5.3</td>
+                <td>Theoretical</td>
+            </tr>
+            <tr>
+                <td>VULN-003</td>
+                <td>OpenSSH MaxAuthTries Bypass</td>
+                <td><span class="badge severity-medium">Medium</span></td>
+                <td>5.3</td>
+                <td>Theoretical</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>4. Detailed Findings</h2>
+
+    <h3>VULN-001: SSH User Enumeration (CVE-2016-6210)</h3>
+    <p><strong>Severity:</strong> Medium (CVSS: 5.3) | <strong>Vector:</strong> AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</p>
+    <p><strong>Affected Asset:</strong> 45.33.32.156:22</p>
+    <p><strong>Description:</strong> The OpenSSH service allows remote attackers to determine valid usernames by observing timing differences in the authentication response.</p>
+    <p><strong>Impact:</strong> Facilitates targeted brute-force attacks against existing users.</p>
+    <p><strong>Remediation:</strong> Upgrade OpenSSH to a current, supported version.</p>
+    <p><strong>References:</strong> CVE-2016-6210</p>
+
+    <h3>VULN-002: Apache HTTP Request Smuggling (CVE-2016-8743)</h3>
+    <p><strong>Severity:</strong> Medium (CVSS: 5.3) | <strong>Vector:</strong> AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N</p>
+    <p><strong>Affected Asset:</strong> 45.33.32.156:80</p>
+    <p><strong>Description:</strong> Outdated Apache 2.4.7 parses HTTP requests improperly, potentially allowing for request smuggling in specific proxy configurations.</p>
+    <p><strong>Impact:</strong> Potential for cache poisoning or bypass of security controls.</p>
+    <p><strong>Remediation:</strong> Upgrade Apache to the latest stable release.</p>
+    <p><strong>References:</strong> CVE-2016-8743</p>
+
+    <h3>VULN-003: OpenSSH MaxAuthTries Bypass (CVE-2015-5600)</h3>
+    <p><strong>Severity:</strong> Medium (CVSS: 5.3) | <strong>Vector:</strong> AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N</p>
+    <p><strong>Affected Asset:</strong> 45.33.32.156:22</p>
+    <p><strong>Description:</strong> Allows attackers to bypass the <em>MaxAuthTries</em> limit by establishing multiple concurrent connections.</p>
+    <p><strong>Impact:</strong> Significantly increases the efficiency of automated brute-force attacks.</p>
+    <p><strong>Remediation:</strong> Upgrade OpenSSH to a current, supported version.</p>
+    <p><strong>References:</strong> CVE-2015-5600</p>
+</div>
+
+<div class="section">
+    <h2>5. Remediation Roadmap</h2>
+    <ul>
+        <li><strong>Short-term (0-30 days):</strong> Apply OS patches and perform a full version upgrade of Apache and OpenSSH. Disable server banner disclosure (<em>ServerTokens Prod</em>).</li>
+        <li><strong>Medium-term (30-90 days):</strong> Implement hardened configuration profiles for SSH, including disabling password-based authentication in favor of public-key authentication.</li>
+        <li><strong>Long-term:</strong> Establish an automated vulnerability management cycle to prevent the recurrence of EOL software instances.</li>
+    </ul>
+</div>

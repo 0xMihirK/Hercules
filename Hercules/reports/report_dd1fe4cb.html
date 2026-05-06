@@ -1,0 +1,168 @@
+<div class="report-container">
+    <h1>Executive Summary: Security Assessment for scanme.nmap.org</h1>
+
+    <div class="metadata">
+        <strong>Engagement Overview:</strong> This security assessment was conducted on May 5, 2026, to evaluate the defensive posture of the scanme.nmap.org web environment. Our objective was to identify potential security exposures that could lead to unauthorized access, service disruption, or data compromise. We utilized industry-standard penetration testing techniques—including external reconnaissance, vulnerability enumeration, and configuration analysis—to provide a clear picture of the current threat landscape.
+    </div>
+
+    <h2>Overall Security Posture</h2>
+    <p><strong>Current Risk Rating: <span class="badge high">High (C+)</span></strong></p>
+    <p>The system is currently operating with a <strong>High</strong> risk profile. The primary driver for this rating is the use of legacy software components that have reached their "end-of-life." While the system is not currently suffering from a known breach, the presence of outdated server software significantly increases the likelihood that a motivated attacker could gain unauthorized access or force a service outage.</p>
+
+    <h2>Risk Distribution</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Critical</th>
+                <th>High</th>
+                <th>Medium</th>
+                <th>Low</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>2</td>
+                <td>0</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Key Findings & Business Impact</h2>
+    <ul>
+        <li><strong>Outdated Infrastructure (Apache & OpenSSH):</strong> The web server and remote access protocols are utilizing versions that are no longer supported by their vendors. 
+            <br><em>Business Impact:</em> This creates a "low-hanging fruit" scenario for automated cyberattacks. Since these vulnerabilities are publicly documented, attackers do not need sophisticated tools to attempt an exploit, potentially leading to total system compromise or permanent operational downtime.</li>
+        <li><strong>Excessive Information Disclosure:</strong> The system is configured to openly advertise its specific software versions to anyone who connects. 
+            <br><em>Business Impact:</em> This assists malicious actors in their reconnaissance phase, allowing them to precisely tailor their attacks to the specific weaknesses of your outdated infrastructure, thereby increasing their chances of success.</li>
+    </ul>
+
+    <h2>Strategic Recommendations</h2>
+    <ol>
+        <li><strong>Immediate Patching (Priority 1):</strong> Initiate an emergency upgrade cycle to update Apache and OpenSSH to the current, vendor-supported versions. This will resolve the highest areas of risk immediately.</li>
+        <li><strong>Service Hardening:</strong> Configure the environment to "obfuscate" server details. Hiding version numbers and disabling non-essential services will make the system a less attractive and more difficult target.</li>
+        <li><strong>Implement Lifecycle Management:</strong> Shift from reactive security to proactive management by establishing a formal schedule for software updates and regular automated security scanning.</li>
+    </ol>
+
+    <h2>Compliance & Governance</h2>
+    <p>While this engagement did not map to a specific regulatory framework (such as PCI-DSS or HIPAA), the identified vulnerabilities violate standard "due care" practices. Operating EOL software is generally considered a significant finding in any standard audit and would likely result in compliance failure across most major industry security frameworks.</p>
+
+    <h2>Next Steps</h2>
+    <p>We recommend immediate remediation of the high-risk findings within the next 14 days. Following these updates, we suggest a follow-up validation assessment to confirm that the security patches were applied correctly and that no further exposures were introduced during the update process.</p>
+</div>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<style>
+    .report-container { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+    h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    .badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; font-size: 0.8em; }
+    .critical { background-color: #c0392b; }
+    .high { background-color: #e67e22; }
+    .medium { background-color: #f1c40f; color: #333; }
+    .low { background-color: #27ae60; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f8f9fa; }
+    .metadata { background: #f4f7f6; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+
+<div class="report-container">
+    <h1>Vulnerability Assessment Report: http://scanme.nmap.org/</h1>
+
+    <div class="metadata">
+        <strong>Report Title:</strong> Penetration Test & Vulnerability Assessment<br>
+        <strong>Date:</strong> 2026-05-05<br>
+        <strong>Target:</strong> http://scanme.nmap.org/ (45.33.32.156)<br>
+        <strong>Assessor:</strong> Security Assessment Team
+    </div>
+
+    <h2>1. Methodology</h2>
+    <p>This assessment followed an industry-standard penetration testing methodology to identify, validate, and document security risks within the target environment.</p>
+    <ul>
+        <li><strong>Reconnaissance:</strong> Passive and active information gathering using WHOIS, DNS, and banner grabbing (Nmap).</li>
+        <li><strong>Enumeration:</strong> Web directory brute-forcing (Gobuster), technology stack identification, and service discovery.</li>
+        <li><strong>Vulnerability Analysis:</strong> Mapping identified service versions against known CVE databases and configuration review.</li>
+        <li><strong>Web Application Testing:</strong> Testing for common OWASP Top 10 vectors including XSS, SQLi, and path traversal.</li>
+    </ul>
+
+    <h2>2. Reconnaissance Summary</h2>
+    <ul>
+        <li><strong>Open Ports:</strong> 22 (SSH), 80 (HTTP), 9929 (Nping), 31337 (Ncat).</li>
+        <li><strong>Operating System:</strong> Linux (Ubuntu-based distribution).</li>
+        <li><strong>Web Server:</strong> Apache 2.4.7.</li>
+        <li><strong>Infrastructure:</strong> Hosted on Linode (Akamai) infrastructure.</li>
+    </ul>
+
+    <h2>3. Findings Summary Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Severity</th>
+                <th>CVSS 3.1</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>VULN-01</td>
+                <td>Outdated Apache Web Server (2.4.7)</td>
+                <td><span class="badge high">High</span></td>
+                <td>7.5</td>
+                <td>Confirmed</td>
+            </tr>
+            <tr>
+                <td>VULN-02</td>
+                <td>Outdated OpenSSH (6.6.1p1)</td>
+                <td><span class="badge high">High</span></td>
+                <td>7.4</td>
+                <td>Confirmed</td>
+            </tr>
+            <tr>
+                <td>VULN-03</td>
+                <td>Information Disclosure via Banners</td>
+                <td><span class="badge low">Low</span></td>
+                <td>3.1</td>
+                <td>Confirmed</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Detailed Findings</h2>
+
+    <h3>VULN-01: Outdated Apache Web Server (2.4.7)</h3>
+    <p><strong>Severity:</strong> <span class="badge high">High</span> (CVSS 7.5: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)</p>
+    <p><strong>Affected Asset:</strong> http://scanme.nmap.org/</p>
+    <p><strong>Description:</strong> The web server is running an End-of-Life (EOL) version of Apache. This version is vulnerable to numerous known exploits, including Denial of Service and protocol manipulation.</p>
+    <p><strong>Evidence:</strong> HTTP Header: <code>Server: Apache/2.4.7 (Ubuntu)</code></p>
+    <p><strong>False Positive Assessment:</strong> True Positive. The version string is confirmed via direct server response.</p>
+    <p><strong>Remediation:</strong> Upgrade to the latest stable version of Apache (2.4.58 or higher).</p>
+    <p><strong>References:</strong> CVE-2017-9798, CWE-1104</p>
+
+    <h3>VULN-02: Outdated OpenSSH (6.6.1p1)</h3>
+    <p><strong>Severity:</strong> <span class="badge high">High</span> (CVSS 7.4: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N)</p>
+    <p><strong>Affected Asset:</strong> SSH (Port 22)</p>
+    <p><strong>Description:</strong> The SSH service is severely outdated, predating critical security patches related to authentication and side-channel leakage.</p>
+    <p><strong>Evidence:</strong> Banner: <code>SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13</code></p>
+    <p><strong>False Positive Assessment:</strong> True Positive. Confirmed via SSH banner grabbing.</p>
+    <p><strong>Remediation:</strong> Update OpenSSH to the latest version supported by the OS distribution.</p>
+    <p><strong>References:</strong> CVE-2016-6515, CWE-1104</p>
+
+    <h3>VULN-03: Information Disclosure via Banners</h3>
+    <p><strong>Severity:</strong> <span class="badge low">Low</span> (CVSS 3.1: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p><strong>Affected Asset:</strong> Global</p>
+    <p><strong>Description:</strong> The server explicitly returns version information in HTTP headers and SSH banners, assisting an attacker in identifying specific CVEs to target.</p>
+    <p><strong>Evidence:</strong> Observed "Server" and "SSH-2.0" headers.</p>
+    <p><strong>False Positive Assessment:</strong> True Positive. Confirmed via HTTP/SSH handshake analysis.</p>
+    <p><strong>Remediation:</strong> Configure Apache to hide the server signature and modify SSH settings to suppress detailed banners.</p>
+    <p><strong>References:</strong> CWE-200</p>
+
+    <h2>5. Remediation Roadmap</h2>
+    <ul>
+        <li><strong>Short-term (0-30 days):</strong> Immediately update Apache and OpenSSH software packages to patch critical EOL-related vulnerabilities.</li>
+        <li><strong>Medium-term (30-90 days):</strong> Apply configuration hardening, such as masking version strings in service banners and implementing local firewall rules for non-standard ports (9929, 31337).</li>
+        <li><strong>Long-term:</strong> Establish a recurring patch management and vulnerability scanning schedule to prevent the accumulation of legacy service debt.</li>
+    </ul>
+</div>

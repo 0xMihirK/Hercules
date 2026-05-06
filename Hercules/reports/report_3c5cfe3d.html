@@ -1,0 +1,177 @@
+<h1>Executive Summary: Security Assessment of scanme.nmap.org</h1>
+
+<div class="section">
+    <h2>1. Engagement Overview</h2>
+    <p>This assessment was conducted on May 5, 2026, to evaluate the security posture of the public-facing infrastructure at <strong>scanme.nmap.org</strong>. Our objective was to identify potential vulnerabilities that could be leveraged by unauthorized parties to gain insight into the system, bypass security controls, or gain unauthorized access. The scope of this engagement focused on identifying service misconfigurations and outdated software components across the public network footprint.</p>
+</div>
+
+<div class="section">
+    <h2>2. Overall Security Posture</h2>
+    <p><strong>Overall Risk Rating: <span class="badge medium">B- (Moderate Risk)</span></strong></p>
+    <p>While the target environment does not show signs of immediate, critical-level compromise, it operates on a significantly outdated software stack. The current posture presents an unnecessary risk due to potential exposure to known vulnerabilities and limited visibility into internal traffic. Addressing these findings will significantly harden the infrastructure against modern automated threats.</p>
+</div>
+
+<div class="section">
+    <h2>3. Key Findings Summary</h2>
+    <ul>
+        <li><strong>Outdated Infrastructure (Medium Risk):</strong> The system is running legacy software (OpenSSH 6.6.1p1). This version is significantly past its end-of-life, leaving the remote access entry point vulnerable to known exploits and brute-force attacks.</li>
+        <li><strong>Information Disclosure (Low Risk):</strong> The web server is configured to broadcast its specific software versions to anyone who visits the site. This "banner-grabbing" allows malicious actors to map our specific technology stack and tailor their attacks with minimal effort.</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>4. Risk Distribution</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Risk Level</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Critical</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>High</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Medium</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>Low</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>5. Strategic Recommendations</h2>
+    <p>To improve the security maturity of the platform, we recommend the following strategic actions:</p>
+    <ul>
+        <li><strong>Prioritize Patch Management:</strong> Immediately initiate an upgrade cycle for all core services, specifically the Operating System and SSH components, to move away from End-of-Life software.</li>
+        <li><strong>Harden Service Configurations:</strong> Implement "Security through Obscurity" best practices by suppressing server version headers and limiting the information provided during service handshakes.</li>
+        <li><strong>Implement Automated Lifecycle Management:</strong> Transition to a modern, containerized deployment strategy. This will allow for automated patching via CI/CD pipelines, removing the reliance on manual configuration and reducing the likelihood of "configuration drift."</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>6. Next Steps</h2>
+    <p>We recommend the IT operations team addresses the <strong>Medium</strong> risk finding regarding SSH within the next 30 days. Once these patches are applied, we suggest a follow-up validation scan to ensure that all vulnerabilities have been successfully remediated. Continuous monitoring should be established to ensure that no further legacy software is deployed into the production environment.</p>
+</div>
+
+<hr style='margin: 60px 0; border: none; border-top: 1px solid var(--colors-border);'>
+
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; }
+    h1, h2, h3 { color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f8f9fa; }
+    .badge { padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold; font-size: 0.8em; }
+    .critical { background-color: #dc3545; }
+    .high { background-color: #fd7e14; }
+    .medium { background-color: #ffc107; color: #333; }
+    .low { background-color: #17a2b8; }
+    .info { background-color: #6c757d; }
+    .section { margin-bottom: 30px; }
+    pre { background: #f4f4f4; padding: 10px; overflow-x: auto; border: 1px solid #ccc; }
+</style>
+
+<h1>Vulnerability Assessment Report: http://scanme.nmap.org/</h1>
+
+<div class="section">
+    <h2>1. REPORT METADATA</h2>
+    <p><strong>Report Title:</strong> Vulnerability Assessment Report</p>
+    <p><strong>Date:</strong> May 5, 2026</p>
+    <p><strong>Target:</strong> http://scanme.nmap.org/ (45.33.32.156)</p>
+    <p><strong>Scope:</strong> Public-facing web and network services</p>
+    <p><strong>Tester:</strong> Senior Security Consultant</p>
+</div>
+
+<div class="section">
+    <h2>2. METHODOLOGY</h2>
+    <p>The assessment followed a structured approach including:</p>
+    <ul>
+        <li><strong>Reconnaissance:</strong> OSINT, DNS analysis, and infrastructure footprinting.</li>
+        <li><strong>Enumeration:</strong> Service discovery, port scanning, and banner grabbing.</li>
+        <li><strong>Web Application Testing:</strong> Directory fuzzing, HTTP method analysis, and header inspection.</li>
+        <li><strong>Vulnerability Analysis:</strong> Correlation of service versions against known CVEs and industry best practices.</li>
+    </ul>
+    <p><strong>Tools Used:</strong> Nmap, Gobuster, WafW00f, manual HTTP inspection (curl), and open-source vulnerability databases (CVE/CWE).</p>
+</div>
+
+<div class="section">
+    <h2>3. RECONNAISSANCE SUMMARY</h2>
+    <p><strong>Open Ports:</strong> 22/tcp (SSH), 80/tcp (HTTP), 9929/tcp (Nping-echo), 31337/tcp (Elite).</p>
+    <p><strong>Detected OS:</strong> Linux (Kernel 3.10 - 4.11 range).</p>
+    <p><strong>Infrastructure:</strong> Hosted on Linode/Akamai cloud infrastructure. The target serves as a controlled, educational environment for security scanning.</p>
+</div>
+
+<div class="section">
+    <h2>4. FINDINGS SUMMARY TABLE</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Severity</th>
+                <th>CVSS 3.1</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>V-02</td>
+                <td>Legacy OpenSSH 6.6.1p1</td>
+                <td><span class="badge medium">Medium</span></td>
+                <td>5.9</td>
+                <td>Verified</td>
+            </tr>
+            <tr>
+                <td>V-01</td>
+                <td>Information Disclosure (Server Headers)</td>
+                <td><span class="badge low">Low</span></td>
+                <td>5.3</td>
+                <td>Confirmed</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="section">
+    <h2>5. DETAILED FINDINGS</h2>
+
+    <h3>V-01: Information Disclosure (Server Headers)</h3>
+    <p><strong>Severity:</strong> <span class="badge low">Low</span> | <strong>CVSS v3.1:</strong> 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)</p>
+    <p><strong>Affected Asset(s):</strong> http://scanme.nmap.org/</p>
+    <p><strong>Description:</strong> The web server explicitly identifies its exact software version in the 'Server' HTTP header.</p>
+    <p><strong>Evidence:</strong> HTTP Header: <code>Server: Apache/2.4.7 (Ubuntu)</code></p>
+    <p><strong>Assessment:</strong> Confirmed via standard HTTP GET request. This is a true positive as it exposes environment details for reconnaissance.</p>
+    <p><strong>Remediation:</strong> Set <code>ServerTokens Prod</code> and <code>ServerSignature Off</code> in Apache configuration.</p>
+    <p><strong>References:</strong> CWE-200: Information Exposure</p>
+
+    <hr>
+
+    <h3>V-02: Legacy OpenSSH 6.6.1p1</h3>
+    <p><strong>Severity:</strong> <span class="badge medium">Medium</span> | <strong>CVSS v3.1:</strong> 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N)</p>
+    <p><strong>Affected Asset(s):</strong> Port 22/tcp</p>
+    <p><strong>Description:</strong> The target runs an outdated version of OpenSSH, which is susceptible to various vulnerabilities and brute-force attempts.</p>
+    <p><strong>Evidence:</strong> Banner: <code>SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13</code></p>
+    <p><strong>Assessment:</strong> Confirmed via banner grabbing. True positive; software is significantly EOL.</p>
+    <p><strong>Remediation:</strong> Upgrade to the latest stable OpenSSH version and enforce public-key authentication.</p>
+    <p><strong>References:</strong> CVE-2015-5600</p>
+</div>
+
+<div class="section">
+    <h2>6. REMEDIATION ROADMAP</h2>
+    <ul>
+        <li><strong>Short-term (0-30 days):</strong> Configure web server to suppress headers and implement rate limiting on SSH to mitigate brute-force.</li>
+        <li><strong>Medium-term (30-90 days):</strong> Patch the underlying Operating System and all associated services (Apache, OpenSSH) to currently supported releases.</li>
+        <li><strong>Long-term (Strategic):</strong> Implement a containerized or ephemeral architecture for testing services, ensuring software is automatically updated via CI/CD pipelines.</li>
+    </ul>
+</div>

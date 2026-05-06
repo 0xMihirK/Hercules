@@ -1,0 +1,68 @@
+# =============================================================
+# Enumeration Crew — Task Definitions
+# =============================================================
+
+service_enumeration_task:
+  description: >
+    Perform deep enumeration of services discovered during reconnaissance
+    on {target}.
+    
+    Use the reconnaissance results to guide your enumeration:
+    {recon_results}
+    
+    Steps:
+    1. For each open port/service discovered, perform version-specific probing
+    2. Check for default credentials on administrative services
+    3. Enumerate SMB shares, FTP anonymous access, and similar services
+    4. Identify service-specific misconfigurations
+    5. Map out authentication mechanisms
+    
+    Target: {target}
+    Special Instructions: {special_instructions}
+    
+    Focus on findings that could lead to exploitation.
+
+    CRITICAL INSTRUCTION FOR ALL TASKS:
+    You MUST use the `append_to_shared_storage` tool to record any discovered passwords, flags, open ports, or interesting findings. You can also use `read_shared_storage` to see what other agents have found. This is mandatory for the final CTF writeup.
+  expected_output: >
+    A detailed service enumeration report containing:
+    - Per-service deep enumeration results
+    - Default credential check results
+    - Identified misconfigurations per service
+    - Authentication mechanism details
+    - Prioritized list of most promising attack vectors
+  agent: service_enumerator
+
+web_enumeration_task:
+  description: >
+    Perform comprehensive web application enumeration on {target}.
+    
+    Use the reconnaissance results to guide your enumeration:
+    {recon_results}
+    
+    Steps:
+    1. Discover directories and files using brute-force tools
+    2. Identify hidden parameters and API endpoints
+    3. Detect WAF (Web Application Firewall) presence and type
+    4. Fingerprint web technologies, frameworks, and CMS
+    5. Map out the complete URL structure and entry points
+    
+    Target: {target}
+    Special Instructions: {special_instructions}
+    
+    Be thorough in content discovery — hidden endpoints often
+    contain the most critical vulnerabilities.
+
+    CRITICAL INSTRUCTION FOR ALL TASKS:
+    You MUST use the `append_to_shared_storage` tool to record any discovered passwords, flags, open ports, or interesting findings. You can also use `read_shared_storage` to see what other agents have found. This is mandatory for the final CTF writeup.
+  expected_output: >
+    A comprehensive web enumeration report containing:
+    - Discovered directories, files, and endpoints
+    - Hidden parameters and API routes
+    - WAF detection results and bypass suggestions
+    - Technology stack and framework identification
+    - Sitemap and URL structure
+    - Prioritized list of interesting endpoints for vulnerability testing
+  agent: web_app_enumerator
+  context:
+    - service_enumeration_task

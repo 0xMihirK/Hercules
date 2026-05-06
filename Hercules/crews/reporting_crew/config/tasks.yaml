@@ -1,0 +1,130 @@
+# =============================================================
+# Reporting Crew — Task Definitions
+# =============================================================
+
+compile_report_task:
+  description: >
+    Compile all penetration test findings into a professional
+    vulnerability assessment report for {target}.
+    
+    Input data from all phases:
+    {all_findings}
+    
+    Report Structure (MANDATORY — follow this format exactly):
+    
+    1. REPORT METADATA
+       - Report title, date, target, scope, tester info
+    
+    2. METHODOLOGY
+       - Phases performed (recon, enumeration, vulnerability analysis,
+         web app testing, exploitation if CTF mode, post-exploitation if CTF mode)
+       - Tools and techniques used in each phase
+       
+    3. RECONNAISSANCE SUMMARY
+       - Open Ports and Services (extracted from Nmap findings)
+       - Identified Operating Systems
+       - Target Architecture and Infrastructure summary
+    
+    4. FINDINGS SUMMARY TABLE
+       - Table with: ID, Title, Severity, CVSS 3.1 Score, Affected Asset, Status
+       - Sorted by severity (Critical → Informational)
+    
+    5. DETAILED FINDINGS
+       For each vulnerability:
+       - Finding ID and Title
+       - Severity and CVSS v3.1 score with vector string (You MUST calculate/estimate this if not provided)
+       - Affected asset(s) and endpoint(s) (MANDATORY FIELD)
+       - Description of the vulnerability
+       - Evidence (tool output, request/response, etc.)
+       - False Positive Assessment: Explicitly state why this finding is definitively a true positive and not a scanner hallucination or default 403 error.
+       - Impact assessment
+       - Remediation recommendation with priority
+       - References (CVE identifiers, CWE, OWASP) (MANDATORY FIELD)
+    
+    6. REMEDIATION ROADMAP
+       - Short-term fixes (0-30 days)
+       - Medium-term improvements (30-90 days)
+       - Long-term strategic recommendations
+    
+    CTF Mode: {ctf_mode}
+    Compliance Framework: {compliance_framework}
+    Special Instructions: {special_instructions}
+    
+    Output the report in clean, raw HTML format with proper styling
+    for PDF export. Use tables, color-coded severity badges,
+    and clear section headers. 
+    
+    CRITICAL INSTRUCTION: Do NOT wrap your output in ```html ... ``` backticks. Output pure HTML only. Do NOT include HTML, HEAD, or BODY tags, just the inner content.
+  expected_output: >
+    A complete, professionally formatted vulnerability assessment
+    report in HTML format following the structure above. Must include:
+    - All findings with proper CVSS scores and evidence
+    - Clear remediation recommendations
+    - Professional formatting suitable for client delivery
+    - Color-coded severity indicators
+    - Properly structured tables and sections
+  agent: report_compiler
+
+executive_summary_task:
+  description: >
+    Write a compelling executive summary for the penetration test
+    report on {target}.
+    
+    Full report content:
+    {report_content_context}
+    
+    The executive summary must include:
+    1. Engagement overview (scope, dates, approach)
+    2. Overall security posture rating (A-F or risk score)
+    3. Key findings summary (top 3-5 critical issues)
+    4. Risk heat map data (Critical/High/Medium/Low counts)
+    5. Strategic recommendations for leadership
+    6. Compliance implications (if framework specified)
+    
+    Compliance Framework: {compliance_framework}
+    CTF Mode: {ctf_mode}
+    
+    Write for a non-technical audience. Use business impact language.
+    Keep it to 1-2 pages maximum.
+    
+    CRITICAL INSTRUCTION: Do NOT wrap your output in ```html ... ``` backticks. Output pure HTML only. Do NOT include HTML, HEAD, or BODY tags, just the inner content.
+  expected_output: >
+    A polished executive summary in HTML format containing:
+    - Engagement overview paragraph
+    - Overall risk score/rating with visual indicator
+    - Top critical findings in business language
+    - Severity distribution data for charts
+    - Strategic recommendations (3-5 bullet points)
+    - Compliance mapping summary (if applicable)
+    - Next steps and timeline recommendations
+  agent: executive_summary_writer
+  context:
+    - compile_report_task
+
+ctf_writeup_task:
+  description: >
+    Write a detailed CTF writeup for {target}.
+    
+    You MUST read the shared storage file (using the read_shared_storage tool) to extract ALL flags, passwords, and critical findings discovered by the other agents.
+    
+    All findings context:
+    {all_findings}
+    
+    The writeup must include:
+    1. Introduction and Target Information
+    2. Reconnaissance & Enumeration (Nmap, Gobuster, etc.)
+    3. Initial Access / Exploitation (Exact steps and commands)
+    4. Privilege Escalation
+    5. Flags Discovered (Include the exact flag text, e.g., flag{{...}} or THM{{...}})
+    6. Passwords/Hashes Found
+    
+    Output the writeup in cleanly formatted Markdown.
+  expected_output: >
+    A complete Markdown CTF writeup containing:
+    - Step-by-step exploitation path
+    - Exact commands used
+    - All discovered flags and passwords
+    - Explanations of vulnerabilities
+  agent: ctf_writeup_author
+  context:
+    - compile_report_task

@@ -1,0 +1,40 @@
+# =============================================================
+# WebApp Testing Crew — Task Definitions
+# =============================================================
+
+web_app_testing_task:
+  description: >
+    Perform rigorous web application testing on the web services 
+    discovered at {target}.
+    
+    Use the enumeration results to guide your testing:
+    {enum_results}
+    
+    CRITICAL INSTRUCTION:
+    You MUST execute `gobuster` using 20 threads to brute-force 
+    directories and files. Report all sensitive or interesting 
+    directories/files found.
+    
+    Steps:
+    1. Identify all web ports (80, 443, 8080, etc.)
+    2. Run Gobuster (20 threads) to find hidden directories and files
+    3. Execute the `wafw00f` tool to detect any Web Application Firewalls (WAF). If a WAF is found, explicitly document its presence and type in your findings.
+    4. Test identified endpoints for SQL injection, XSS, SSRF, and 
+       other vulnerabilities
+    
+    Target: {target}
+    Target Type: {target_type}
+    Special Instructions: {special_instructions}
+    
+    CRITICAL FALSE POSITIVE PREVENTION:
+    When reviewing Gobuster or FFuf output, ignore standard 403 Forbidden or 401 Unauthorized errors unless they indicate a specific, bypassable administrative interface. Do NOT report the mere existence of a login page, standard HTTP status codes, or generic directories (like /images or /css) as vulnerabilities. Always look for concrete exploitability.
+    
+    CRITICAL INSTRUCTION FOR ALL TASKS:
+    You MUST use the `append_to_shared_storage` tool to record any discovered passwords, flags, open ports, or interesting findings. You can also use `read_shared_storage` to see what other agents have found. This is mandatory for the final CTF writeup.
+  expected_output: >
+    A dedicated web application vulnerability report containing:
+    - Detailed list of discovered directories and files from Gobuster
+    - Verified web vulnerabilities (SQLi, XSS, etc.) with payloads
+    - WAF bypass attempts and results
+    - Risk severity for each finding
+  agent: web_vulnerability_specialist
