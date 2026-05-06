@@ -122,6 +122,8 @@ The isolated MCP Server exposes tools grouped by offensive capabilities:
 | **Exploitation** | `metasploit`, `searchsploit` | Active payload generation and Exploit-DB |
 | **Basic CLI** | `curl`, `netcat`, `ssh`, `dig`, `grep` | Fundamental networking and text manipulation |
 
+*Note: The tools listed above are just a subset. The Hercules platform includes over 61 distinct tool functions across these categories to handle almost any offensive scenario.*
+
 ---
 
 ## 🔒 Security & Safety
